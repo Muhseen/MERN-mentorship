@@ -83,3 +83,10 @@ let muhsin: Talent = { name:"Muhsin",rate:30};
 let Eren: Talent = { name:"Eren",rate:1000, status:Status.Mentor};
 console.log({muhsin})
 console.log({Eren})
+
+
+//Interface Usage
+
+//Classes Basics
+
+//

@@ -43,9 +43,3 @@ Names.forEach(function(name) {
 
 
 
-//Exercise 4
-//Using Types
-
-Type Talent = {
-    name: sting
-}
