@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IUser } from './entities/user.entity';
+import { NotFoundException } from '@nestjs/common/exceptions';
 @Injectable()
 export class UsersService {
   constructor(@InjectModel('User') private readonly userModel: Model<IUser>) {}
@@ -36,13 +37,30 @@ export class UsersService {
     return this.userModel.findById(id);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(
+    id: string,
+    username: string,
+    password: string,
+    user_type: number,
+    email: string,
+  ) {
+    const user = await this.userModel.findById(id);
+
+    if (username) user.username = username;
+    if (email) user.email = email;
+    if (password) user.password = password;
+    if (user_type) user.user_type = user_type;
+    user.save();
+
+    return user;
   }
 
-  remove(id: string) {
-    const user = this.userModel.findOneAndDelete({ id });
-    return user;
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const user = await this.userModel.deleteOne({ _id: id });
+
+    if (user.deletedCount) {
+      return 'User Deleted';
+    }
+    throw new NotFoundException('Resouce does not exsit');
   }
 }

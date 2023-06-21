@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Document } from 'mongoose';
 
 export class User {
   username: string;
@@ -14,7 +15,7 @@ export const UserSchema = new mongoose.Schema({
   email: String,
 });
 
-export interface IUser {
+export interface IUser extends mongoose.Document {
   username: string;
   email: string;
   password: string;
