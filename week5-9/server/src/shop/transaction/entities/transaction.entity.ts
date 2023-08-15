@@ -8,6 +8,11 @@ export enum Status {
   failed = 5,
   completed = 6,
 }
+export enum PaymentMethod {
+  card = 1,
+  cash,
+  wire_transfer,
+}
 export class Transaction {
   amount: number;
   txn_date: number;
@@ -15,4 +20,5 @@ export class Transaction {
   order_items: Product[];
   address?: string;
   name: string;
+  payment_method: PaymentMethod;
 }

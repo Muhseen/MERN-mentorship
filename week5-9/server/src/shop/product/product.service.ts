@@ -1,26 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-
+import { IProduct, Product } from './entities/product.entity';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose/dist/common';
+// import BadRequestException from '@nestjs/common/exceptions';
 @Injectable()
 export class ProductService {
-  create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+  constructor(@InjectModel('Product') private product_model: Model<IProduct>) {}
+  async create(createProductDto: CreateProductDto): Promise<Product> {
+    const created_product = new this.product_model(createProductDto);
+    return await created_product.save();
   }
 
-  findAll() {
-    return `This action returns all product`;
+  async findAll() {
+    return await this.product_model.find();
+    //return `This action returns all product`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findOne(id: string) {
+    return await this.product_model.findById(id);
+  }
+  async findOneByCustomId(id: string) {
+    return await this.product_model.findOne({ id });
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async update(id: string, updateProductDto: UpdateProductDto) {
+    console.log({ UpdateProductDto, id });
+    return await this.product_model.updateOne(
+      {
+        _id: id,
+      },
+      UpdateProductDto,
+      { new: true },
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: string) {
+    return await this.product_model.deleteOne({ _id: id });
   }
 }
