@@ -18,6 +18,7 @@ export class UserController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
+    bcrypt.genSalt(10);
     createUserDto.passwordHash = await bcrypt.hash(
       createUserDto.passwordHash,
       10,
