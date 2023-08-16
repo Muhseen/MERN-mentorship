@@ -7,6 +7,8 @@ import { TransactionModule } from './shop/transaction/transaction.module';
 import { ConfigModuleModule } from './config-module/config-module.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthControllerController } from './auth-controller/auth-controller.controller';
+import { UserModule } from './user/user.module';
+import { CONN_STR } from './config';
 @Module({
   imports: [
     TaskModule,
@@ -14,9 +16,8 @@ import { AuthControllerController } from './auth-controller/auth-controller.cont
     TransactionModule,
     ConfigModuleModule,
     // MongooseModule.forRoot('mongodb://localhost/nest'),
-    MongooseModule.forRoot(
-      'mongodb://127.0.0.1:27017/mentorship?directConnection=true&serverSelectionTimeoutMS=2000',
-    ),
+    MongooseModule.forRoot(CONN_STR),
+    UserModule,
   ],
   controllers: [AppController, AuthControllerController],
   providers: [AppService],
