@@ -8,21 +8,16 @@ import TodoItem from '../TodoItem/TodoItem';
 interface Props{
   todos: Todo[];
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
+  handleTaskDeleted: (id:number) => void;
+  handleTaskCompleted: (id:number) => void;
 }
-const TodoList = ({todos, setTodos}:Props): JSX.Element => {
-  const handleTaskCompleted = (id:number):void => {
-    console.log(id);
-  }
-  const handleTaskDeleted = (id:number):void => {
-    console.log(id);
-    setTodos(todos.map((t) => { t.id !== id }));
-  }
+const TodoList = ({todos, setTodos, handleTaskDeleted, handleTaskCompleted }:Props): JSX.Element => {
+  
      
   return (
     <Row className='  mx-3 pl-5  '>
             {todos.map((todo) => <TodoItem todo={todo} handleTaskDeleted={ handleTaskDeleted} handleTaskCompleted={handleTaskCompleted} key={todo.id}></TodoItem>)}      
-  
-    </Row>
+      </Row>
   );
 };
 

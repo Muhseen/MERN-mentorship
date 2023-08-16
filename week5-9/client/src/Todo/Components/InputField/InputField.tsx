@@ -14,7 +14,7 @@ const InputField = ({todo,setTodo, handleAddTodo}:Todo): JSX.Element => {
   
   
   return (
-    <Row className='bg-warning my-3'>
+    <Row className=' my-3'>
       <Col lg={{ span: 4, offset: 4 }} sm={12} >
           <Form.Group>
           <Form.Control type="text" ref={ InputRef} value={todo} onChange={(e)=>setTodo(e.target.value)} placeholder="Type task here ...." />

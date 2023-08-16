@@ -9,7 +9,7 @@ interface Props {
   
   
 const TodoItem = ({ todo, handleTaskCompleted, handleTaskDeleted }:Props): JSX.Element => {
-  return <Row className="bg-success  my-2 text-center p-3 text-ce">
+  return <Row className="bg-success  my-2 text-center p-3 text-ce" >
     <Col>
       {todo.task}
     </Col>
